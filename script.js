@@ -29,15 +29,15 @@ rightArrow.addEventListener("click", (e) => {
   changeImage(id)
 });
 
-var text = ""
-var moveCount = 0
-function getMoves(data) {
-    data.forEach(createString)
-    moveCount++;
-}
+var text = ''
+var i = 0
 
-function createString(movement) {
-    text = text + movement.moveCount.move.name + "\n";
+function createString(data) {
+    text = ""
+    for(let i = 0; i < data.moves.length; i++) {
+        text = text + data.moves[i].move.name + "\n";
+    }
+        
 }
 
 function changeImage(id, iM) {
@@ -73,8 +73,8 @@ function changeImage(id, iM) {
         infoMovesBox.textContent = data.name
     }
     else {
-        // getMoves(data.moves);
-        infoMovesBox.textContent = "moves here";
+        createString(data)
+        infoMovesBox.innerText = text;
     }
     
   };
