@@ -77,7 +77,7 @@ h1 {
     font-size: 30px;
 }
 
-.info-moves-box {
+#info-moves-box {
     background-color: lightgrey;
     height: 300px;
     width: 200px;
