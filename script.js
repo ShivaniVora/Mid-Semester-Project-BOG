@@ -5,10 +5,11 @@ const moves = document.getElementById("m");
 const info = document.getElementById("i");
 const tag1 = document.getElementById("tag1");
 const tag2 = document.getElementById("tag2");
+const infoHeader = document.getElementById("i-or-m");
 tag1.style.display = "none";
 tag2.style.display = "none";
 
-info.style.backgroundColor = "lightgreen";
+info.style.backgroundColor = "#7CFF79";
 iM = 1;
 changeImage(id, iM);
 
@@ -34,15 +35,17 @@ var colors = {
 };
 
 info.addEventListener("click", (e) => {
-  info.style.backgroundColor = "lightgreen";
-  moves.style.backgroundColor = "snow";
+  info.style.backgroundColor = "#7CFF79";
+  moves.style.backgroundColor = "#E8E8E8";
+  infoHeader.textContent = "Info";
   iM = 1;
   changeImage(id, iM);
 });
 
 moves.addEventListener("click", (e) => {
-  info.style.backgroundColor = "snow";
-  moves.style.backgroundColor = "lightgreen";
+  info.style.backgroundColor = "#E8E8E8";
+  moves.style.backgroundColor = "#7CFF79";
+  infoHeader.textContent = "Moves";
   iM = 2;
   changeImage(id, iM);
 });
@@ -55,8 +58,10 @@ leftArrow.addEventListener("click", (e) => {
 });
 
 rightArrow.addEventListener("click", (e) => {
-  id = id + 1;
-  changeImage(id, iM);
+  if (id < 905) {
+    id = id + 1;
+    changeImage(id, iM);
+  }
 });
 
 var text = "";

@@ -15,15 +15,17 @@ h1 {
 
 #name {
   padding: 20px;
-  background-color: lightgray;
+  background-color: #e8e8e8;
   border-style: solid;
   border-radius: 10px;
   border-width: 1px;
   text-align: center;
+  font-size: 20px;
 }
 
 #image {
-  height: 20em;
+  height: 350px;
+  width: 350px;
   border-style: solid;
 }
 
@@ -56,6 +58,7 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  font-weight: normal;
 }
 
 .b {
@@ -66,35 +69,42 @@ h1 {
   margin-right: 10px;
   margin-left: 10px;
   border-radius: 10px;
-  background-color: snow;
+  background-color: #e8e8e8;
 }
 
 #arrowl {
   font-size: 30px;
+  font-weight: normal;
 }
 
 #arrowr {
   font-size: 30px;
+  font-weight: normal;
 }
 
 #info-moves-box {
-  background-color: lightgrey;
-  height: 300px;
-  width: 200px;
+  background-color: #e8e8e8;
+  height: 420px;
+  width: 320px;
   padding: 20px;
   overflow: scroll;
+  font-size: 20px;
 }
 
 #i {
   padding-top: 15px;
   padding-bottom: 15px;
   width: 150px;
+  font-weight: normal;
+  font-size: 18px;
 }
 
 #m {
   padding-top: 15px;
   padding-bottom: 15px;
   width: 150px;
+  font-weight: normal;
+  font-size: 18px;
 }
 
 .imgname {
@@ -125,4 +135,8 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: left;
+}
+
+#i-or-m {
+  margin-top: 0px;
 }
