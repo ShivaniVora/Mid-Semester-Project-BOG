@@ -1,18 +1,11 @@
-id = 1;
+//setting all variables and constants
 const rightArrow = document.getElementById("arrowr");
 const leftArrow = document.getElementById("arrowl");
-const moves = document.getElementById("m");
-const info = document.getElementById("i");
+const moves = document.getElementById("moves");
+const info = document.getElementById("info");
 const tag1 = document.getElementById("tag1");
 const tag2 = document.getElementById("tag2");
 const infoHeader = document.getElementById("i-or-m");
-tag1.style.display = "none";
-tag2.style.display = "none";
-
-info.style.backgroundColor = "#7CFF79";
-iM = 1;
-changeImage(id, iM);
-
 var colors = {
   normal: "#A8A77A",
   fire: "#EE8130",
@@ -33,13 +26,24 @@ var colors = {
   steel: "#B7B7CE",
   fairy: "#D685AD",
 };
+var text = "";
+var i = 0;
 
+//setting some initial values
+tag1.style.display = "none";
+tag2.style.display = "none";
+id = 1;
+info.style.backgroundColor = "#7CFF79";
+iM = 1;
+changePokemon(id, iM); //initial call to the changePokemon method
+
+//adding event listeners to buttons (info, moves, right arrow and left arrow)
 info.addEventListener("click", (e) => {
   info.style.backgroundColor = "#7CFF79";
   moves.style.backgroundColor = "#E8E8E8";
   infoHeader.textContent = "Info";
   iM = 1;
-  changeImage(id, iM);
+  changePokemon(id, iM);
 });
 
 moves.addEventListener("click", (e) => {
@@ -47,33 +51,33 @@ moves.addEventListener("click", (e) => {
   moves.style.backgroundColor = "#7CFF79";
   infoHeader.textContent = "Moves";
   iM = 2;
-  changeImage(id, iM);
+  changePokemon(id, iM);
 });
 
 leftArrow.addEventListener("click", (e) => {
   if (id - 1 > 0) {
     id = id - 1;
-    changeImage(id, iM);
+    changePokemon(id, iM);
   }
 });
 
 rightArrow.addEventListener("click", (e) => {
   if (id < 905) {
     id = id + 1;
-    changeImage(id, iM);
+    changePokemon(id, iM);
   }
 });
 
-var text = "";
-var i = 0;
-
-function createString(data) {
+//creating functions to parse various part of the data set retrived after fetching
+//creates the moves string
+function createMovesString(data) {
   text = "";
   for (let i = 0; i < data.moves.length; i++) {
     text = text + data.moves[i].move.name + "\n";
   }
 }
 
+//creates string with all information
 function createInfo(data) {
   text = "height: " + data.height / 10 + "m\n";
   text = text + "weight: " + data.weight / 10 + "kg\n";
@@ -85,14 +89,16 @@ function createInfo(data) {
   text = text + "speed: " + data.stats[5].base_stat + "\n";
 }
 
-function changeImage(id, iM) {
+//changes the pokemon being displayed
+function changePokemon(id, iM) {
   var temp = "https://pokeapi.co/api/v2/pokemon/NUM_HERE";
-  var newUrl = temp.replace("NUM_HERE", id);
+  var newUrl = temp.replace("NUM_HERE", id); //returns a url with the changed id number for a button click (or initial call = 1)
 
-  fetch(newUrl)
-    .then((resp) => resp.json())
-    .then((data) => allfunctions(data));
+  fetch(newUrl) //calling the fetch function
+    .then((resp) => resp.json()) //parsing data into json object
+    .then((data) => allfunctions(data)); //calling method to call necessary functions
 
+  //passing in data to a method call
   allfunctions = (data) => {
     showName(data.name);
     getImage(data.id);
@@ -100,11 +106,13 @@ function changeImage(id, iM) {
     addTags(data);
   };
 
+  //setting value of the text box holding the name to the value of the name of the new pokemon
   showName = (dn) => {
     const nameBox = document.getElementById("name");
     nameBox.textContent = dn;
   };
 
+  //changing the src for the image based on the id number change in the url
   getImage = (id) => {
     var url =
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/NUM_HERE.png";
@@ -113,17 +121,19 @@ function changeImage(id, iM) {
     imageLink.src = url;
   };
 
+  //calling the appropriate method depending on whether or not the info or moves button is clicked
   infoAndMoves = (data) => {
     const infoMovesBox = document.getElementById("info-moves-box");
     if (iM === 1) {
       createInfo(data);
       infoMovesBox.innerText = text;
     } else {
-      createString(data);
+      createMovesString(data);
       infoMovesBox.innerText = text;
     }
   };
 
+  //adding color-coded types depending on the values in the parsed data object
   addTags = (data) => {
     tag1.style.display = "block";
     tag1.innerText = data.types[0].type.name;
